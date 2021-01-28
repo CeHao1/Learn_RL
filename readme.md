@@ -3,3 +3,6 @@ https://towardsdatascience.com/deep-reinforcement-learning-build-a-deep-q-networ
 
 ## 刘建平
 https://github.com/ljpzzz/machinelearning
+
+## Huixi
+https://github.com/Huixxi/TensorFlow2.0-for-Deep-Reinforcement-Learning
