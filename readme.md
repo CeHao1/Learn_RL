@@ -9,3 +9,6 @@ https://github.com/Huixxi/TensorFlow2.0-for-Deep-Reinforcement-Learning
 
 ## Anki
 https://github.com/aniket-gupta1/Reinforcement_Learning
+
+# openAI
+https://spinningup.openai.com/en/latest/user/introduction.html
