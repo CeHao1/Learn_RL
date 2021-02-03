@@ -141,9 +141,9 @@ class DQNAgent:  # Deep Q-Network
             action, q_values = self.model.action_value(obs[None])  # Using [None] to extend its dimension (4,) -> (1, 4)
             obs, reward, done, info = env.step(action)
             ep_reward += reward
-            if render:  # visually show
-                env.render()
-            time.sleep(0.05)
+            #if render:  # visually show
+             #   env.render()
+            #time.sleep(0.05)
         env.close()
         return ep_reward
 
