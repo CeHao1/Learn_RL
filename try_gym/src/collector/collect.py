@@ -1,5 +1,5 @@
-import sys
-sys.path.append('./gym')
+# import sys
+# sys.path.append('./gym')
 
 import gym
 import numpy as np
@@ -15,6 +15,7 @@ class cartpole_collect:
         self.As = []
         self.Bs = []
         self.ABs = []
+        self.SAs = []
 
         self.gravity = env.gravity
         self.masscart = env.masscart
@@ -31,7 +32,7 @@ class cartpole_collect:
         self.states.append(state)
         
     def add_action(self, action):
-        self.actions.append([action])
+        self.actions.append(np.array([action]))
         
     def get_derivatives(self):
         self.num = len(self.actions)
@@ -45,20 +46,21 @@ class cartpole_collect:
             self.Bs.append(B)
             
         self.alined_AB()
+        self.alined_SA()
             
     def show(self):
         for i in range(self.num):
-            print(self.x_dots[i][[0,1]])
-            print(self.s_dots[i][[1,3]])
-            print()
+            # print(self.x_dots[i][[0,1]])
+            # print(self.s_dots[i][[1,3]])
+            # print()
             
 #             print(self.states[i][[1,3]])
 #             print(self.s_dots[i][[0,2]])
 #             print()
             
 #             print(self.As[i],'\n',self.Bs[i])
-            # print(self.ABs[i])
-            # print()
+            print(self.ABs[i])
+            print()
         
         
     def get_x_dot(self, state, action):
@@ -98,3 +100,8 @@ class cartpole_collect:
         for i in range(self.num):
             x = np.hstack((self.As[i].flatten(),self.Bs[i].flatten()))
             self.ABs.append(x)
+
+    def alined_SA(self):
+        for i in range(self.num):
+            x = np.hstack((self.states[i],self.actions[i]))
+            self.SAs.append(x)
