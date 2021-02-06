@@ -25,6 +25,8 @@ class cartpole_collect:
         self.polemass_length = env.polemass_length
         self.force_mag = env.force_mag
         self.tau = env.tau
+        self.theta_threshold_radians = env.theta_threshold_radians
+        self.x_threshold = env.x_threshold
         self.Ns = 2
         self.Nc = 1
         
@@ -105,3 +107,5 @@ class cartpole_collect:
         for i in range(self.num):
             x = np.hstack((self.states[i],self.actions[i]))
             self.SAs.append(x)
+
+        

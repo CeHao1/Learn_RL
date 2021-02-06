@@ -11,6 +11,7 @@ class runner:
         self.env = gym.make('CartPole-v0')
         self.ABs = []
         self.SAs = []
+        self.Ss = []
         self.num_times = num_times
 
     def run_once(self):
@@ -37,9 +38,10 @@ class runner:
             c = self.run_once()
             self.ABs += c.ABs
             self.SAs += c.SAs
+            self.Ss += c.states[1:]
 
     def save_np(self, path='./cartpole_dataset'):
-        dataset = np.array([{'ABs':self.ABs, 'SAs':self.SAs}])
+        dataset = np.array([{'ABs':self.ABs, 'SAs':self.SAs, 'Ss':self.Ss}])
         np.save(path, dataset)
 
 
