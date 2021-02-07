@@ -11,21 +11,21 @@ class cartpole_nn:
         self.build_model(train_data[0].shape, train_goal.shape[1])
     
     def build_model(self, input_shape, output_shape):
-        # self.model = tf.keras.models.Sequential([
-        #     tf.keras.layers.Dense(256, activation = 'relu', input_shape=input_shape),
-        #     tf.keras.layers.Dense(128, activation = 'relu'),
-        #     tf.keras.layers.Dense(128, activation = 'relu'),
-        #     tf.keras.layers.Dense(128, activation = 'relu'),
-        #     tf.keras.layers.Dense(128, activation = 'relu'),
-        #     tf.keras.layers.Dense(64, activation = 'relu'),
-        #     tf.keras.layers.Dense(output_shape)
-        # ])
-
         self.model = tf.keras.models.Sequential([
-            tf.keras.layers.Dense(64, activation = 'relu', input_shape=input_shape),
-            tf.keras.layers.Dense(32, activation = 'relu'),
+            tf.keras.layers.Dense(256, activation = 'relu', input_shape=input_shape),
+            tf.keras.layers.Dense(128, activation = 'relu'),
+            tf.keras.layers.Dense(128, activation = 'relu'),
+            tf.keras.layers.Dense(128, activation = 'relu'),
+            tf.keras.layers.Dense(128, activation = 'relu'),
+            tf.keras.layers.Dense(64, activation = 'relu'),
             tf.keras.layers.Dense(output_shape)
         ])
+
+        # self.model = tf.keras.models.Sequential([
+        #     tf.keras.layers.Dense(64, activation = 'relu', input_shape=input_shape),
+        #     tf.keras.layers.Dense(32, activation = 'relu'),
+        #     tf.keras.layers.Dense(output_shape)
+        # ])
 
         self.model.compile(
             optimizer = 'Adam',
@@ -33,10 +33,10 @@ class cartpole_nn:
             metrics = ['mse']
         )
 
-    def train_model(self, epochs = 100, batch_size=64):
+    def train_model(self, epochs = 100, batch_size=64, verbose = 2):
         self.history = self.model.fit(self.train_data, self.train_goal,
         epochs = epochs, batch_size = batch_size,
-        verbose = 2, validation_split = 0.15)
+        verbose = verbose, validation_split = 0.15)
 
     def plot(self):
         history = self.history

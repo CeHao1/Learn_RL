@@ -1,7 +1,7 @@
 # import sys
 # sys.path.append('./gym')
 
-import gym
+# import gym
 import numpy as np
 import cvxpy as cp
 import math

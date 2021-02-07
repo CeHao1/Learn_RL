@@ -4,29 +4,32 @@
 import gym
 import numpy as np
 from tqdm import tqdm
-from src.collector.collect import cartpole_collect
+from src.collector.collect_param import cartpole_collect_param
+from src.collector.collect import  cartpole_collect
 
 
 class runner:
     def __init__(self):
-        self.env = gym.make('CartPole-v0')
+        self.env = gym.make('CartPole-v2')
         self.ABs = []
         self.SAs = []
         self.Ss = []
         self.dx = []
+        self.ds = []
+        self.params = []
 
     def run_once(self):
-        collector = cartpole_collect(self.env)
+        collector = cartpole_collect_param(self.env)
         state = self.env.reset()
         collector.add_state(state)
 
         for i in range(1000):
             action = self.env.action_space.sample()
-            state, reward, done, info = self.env.step(action)
+            state, reward, done, params = self.env.step(action)
 
             collector.add_state(state)
             collector.add_action(action)
-
+            collector.add_params(params)
             if done:
                 break
 
@@ -41,9 +44,16 @@ class runner:
             self.SAs += c.SAs
             self.Ss += c.states[1:]
             self.dx += c.x_dots
+            self.ds += c.s_dots
+            self.params += c.params
 
     def save(self, path='./cartpole_dataset'):
-        dataset = np.array([{'ABs':self.ABs, 'SAs':self.SAs, 'Ss':self.Ss, 'dx':self.dx}])
+        dataset = np.array([{'ABs':self.ABs, 
+                            'SAs':self.SAs, 
+                            'Ss':self.Ss, 
+                            'dx':self.dx,
+                            'ds':self.ds,
+                            'params':self.params}])
         np.save(path, dataset)
 
 
@@ -55,3 +65,5 @@ class runner:
         self.SAs = []
         self.Ss = []
         self.dx = []
+        self.ds = []
+        self.params = []
