@@ -11,13 +11,19 @@ class cartpole_nn:
         self.build_model(train_data[0].shape, train_goal.shape[1])
     
     def build_model(self, input_shape, output_shape):
+        # self.model = tf.keras.models.Sequential([
+        #     tf.keras.layers.Dense(256, activation = 'relu', input_shape=input_shape),
+        #     tf.keras.layers.Dense(128, activation = 'relu'),
+        #     tf.keras.layers.Dense(128, activation = 'relu'),
+        #     tf.keras.layers.Dense(128, activation = 'relu'),
+        #     tf.keras.layers.Dense(128, activation = 'relu'),
+        #     tf.keras.layers.Dense(64, activation = 'relu'),
+        #     tf.keras.layers.Dense(output_shape)
+        # ])
+
         self.model = tf.keras.models.Sequential([
-            tf.keras.layers.Dense(256, activation = 'relu', input_shape=input_shape),
-            tf.keras.layers.Dense(128, activation = 'relu'),
-            tf.keras.layers.Dense(128, activation = 'relu'),
-            tf.keras.layers.Dense(128, activation = 'relu'),
-            tf.keras.layers.Dense(128, activation = 'relu'),
-            tf.keras.layers.Dense(64, activation = 'relu'),
+            tf.keras.layers.Dense(64, activation = 'relu', input_shape=input_shape),
+            tf.keras.layers.Dense(32, activation = 'relu'),
             tf.keras.layers.Dense(output_shape)
         ])
 
@@ -44,4 +50,5 @@ class cartpole_nn:
         plt.show()
 
     def eval(self, test_data, test_goal):
-        self.model.evaluate(test_data, test_goal)
+        loss, _ = self.model.evaluate(test_data, test_goal)
+        print('Error: ', 100.0 * np.sqrt(loss)/np.average(abs(test_goal)),' %')
